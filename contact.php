@@ -1,4 +1,68 @@
 <!--contact.php-->
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
+
+<?php
+
+session_start();
+
+$page_title = "contact";
+$page_description = "Page Contact";
+
+$errors = []; // pour stocker les erreurs
+$success = false; // pour savoir si tout s'est bien passé true ou false
+$civility = $lastname = $firstname = $email = $services = $message = '';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") { //exécute le bloc seulement si le formulaire a été envoyé
+    //RÉCUPÉRATION DES DONNÉES
+    $civility = isset($_POST["civility"]) ? $_POST["civility"] : ''; //récupère selon l'option sélectionnée
+    $lastname = isset($_POST["lastname"]) ? $_POST["lastname"] : ''; //récupère le nom
+    $firstname = isset($_POST["firstname"]) ? $_POST["firstname"] : ''; //récupère le prénom
+    $email = isset($_POST["email"]) ? $_POST["email"] : ''; // récupère l'email
+    $services = isset($_POST["services"]) ? $_POST["services"] : ''; //selon le bouton radio coché
+    $message = isset($_POST["message"]) ? $_POST["message"] : ''; //récupère le message
+
+    //VÉRIFICATIONS
+    if (!in_array($civility, ['Mr', 'Mme', 'Mlle'])) { // in_array vérifie si une valeur existe dans le tableau
+        $errors['civility'] = "Choisissez une valeur de civilité valide";
+    }
+    if (empty($lastname)) { //emtpy teste si le champ est vide
+        $errors['lastname'] = "Veuillez entrer votre nom";
+    }
+    if (empty($firstname)) { //emtpy teste si le champ est vide
+        $errors['firstname'] = "Veuillez entrer votre prenom";
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //filter_var vérifie la validité d'un email
+        $errors['email'] = "Veuillez entrer une adresse email valide";
+    }
+    if (!in_array($services, ['siteWeb', 'appli', 'logiciel'])) { // in_array vérifie si une valeur existe dans le tableau
+        $errors['services'] = "Choisissez un service";
+    }
+    if (strlen($message) < 5) $errors['message'] = "Veuillez écrire un contenu d’au moins 5 lettres.";
+    }
+    if (!empty($errors)) {
+        $_SESSION['form_data'] = $_POST; //si erreur enregistre les données
+    }
+
+    if(empty($errors)) { // si tout est bon
+        $success = true;
+
+        $data = [
+            'Civilité' => $civility,
+            'Nom' => $lastname,
+            'Prenom' => $firstname,
+            'Email' => $email,
+            'Services' => $services,
+            'Message' => $message,
+            'Date' => date('d-m-Y')
+        ];
+
+        $line = implode(' | ', $data) . "\n";
+        file_put_contents('formulaire.txt', $line, FILE_APPEND);
+}
+?>
 
 <body>
 
@@ -9,33 +73,64 @@ include('header.php');
 <div>
             <p>Contactez moi</p>
 
-        <form class="formulaire bordered" action="https://httpbin.org/post" method="post">
+        <form class="formulaire" action="index.php?page=contact" method="post">
 
-            <label for="statut">Quel est votre statut ?:</label>
-            <select name="statut" id="statut">
-                <option value="">--S'il vous plait choisissez une option--</option>
-                <option value="pro">Professionnel</option>
-                <option value="particulier">Particulier</option>
+            <!-- Exemple de label <select> pour : Un champ civilité -->
+            <label for="civility">Civilité :</label>
+            <select id="civility" name="civility" required>
+                <option value="Mr">Monsieur</option>
+                <option value="Mme">Madame</option>
+                <option value="Mlle">Mademoiselle</option>
             </select>
-            <br><br>
 
+            <!-- Exemple de label et <input> pour : Nom -->
+            <label for="lastname">Nom :</label>
+            <input type="text" id="lastname" name="lastname">
+            <?php if (!empty($errors['lastname'])): ?>
+            <div class="error-box"><?= $errors['lastname'] ?></div>
+            <?php endif; ?>
 
-            <label for="username">Nom d'utilisateur :</label>
-            <input type="text" id="username" name="username" required>
-            <br><br>
+            <!-- Exemple de label et <input> pour : Prénom -->
+            <label for="firstname">Prénom :</label>
+            <input type="text" id="firstname" name="firstname">
+            <?php if (!empty($errors['firstname'])): ?>
+                <div class="error-box"><?= $errors['firstname'] ?></div>
+            <?php endif; ?>
 
-            <label for="phone">Numéro de téléphone :</label>
-            <input type="tel" id="phone" name="phone" pattern="^\+33\d{9}$" required value="+33">
-
-            <!-- Exemple de label et input pour email -->
+            <!-- Exemple de label et <input> pour : email -->
             <label for="email">Adresse e-mail :</label>
-            <input type="email" id="email" name="email" required>
-            <br><br>
+            <input type="email" id="email" name="email">
+            <?php if (!empty($errors['email'])): ?>
+                <div class="error-box"><?= $errors['email'] ?></div>
+            <?php endif; ?>
 
-            <!-- Exemple de label et textarea -->
+
+            <!--<input type=”radio”> pour : des groupes d'options -->
+            <fieldset>
+                <legend>Vous avez besoin de mes services pour :</legend>
+
+                <div>
+                    <input type="radio" id="siteWeb" name="siteWeb" value="siteWeb" checked />
+                    <label for="siteWeb">Un site Web</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="appli" name="appli" value="appli" />
+                    <label for="appli">Une application</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="logiciel" name="logiciel" value="logiciel" />
+                    <label for="logiciel">Un logiciel</label>
+                </div>
+            </fieldset>
+
+
+
+            <!-- Exemple de label et <textarea> pour : écrire un message-->
             <label for="message">Message :</label>
             <textarea id="message" name="message" rows="4" cols="50"></textarea>
-            <br><br>
+
 
             <div class="radio">
 
@@ -86,4 +181,6 @@ include('header.php');
             </div>
 
 <?php
-include('footer.php');
+include('footer.php'); ?>
+
+<?php unset($_SESSION['form_data']); ?>

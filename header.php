@@ -1,4 +1,10 @@
 <!--header.php-->
+<?php
+$page_title = "header";
+$page_description = "Page pour mon header";
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,9 +19,9 @@
     <h1>Popelier Sarah site Web</h1>
     <nav>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="hobby.php">Mes hobbies</a></li>
-            <li><a href="contact.php">Contact</a></li>
+            <li><a href="index.php?page=index">Accueil</a></li>
+            <li><a href="hobby.php?page=hobby">Mes hobbies</a></li>
+            <li><a href="contact.php?page=contact">Contact</a></li>
         </ul>
     </nav>
 </header>

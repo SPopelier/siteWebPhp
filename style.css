@@ -23,6 +23,10 @@ a:hover {
     color: #e9c46a;
 }
 
+.fontweight {
+    font-weight: bold;
+}
+
 footer {
     display: flex;
     flex-direction: row;
@@ -30,6 +34,16 @@ footer {
 }
 
 /*contact*/
+
+.error-box {
+    color: #264653;
+    border: 1px solid #e76f51;
+    background-color: #f4a261;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
 .flex-row-between{
     display: flex;
     flex-direction: row;

@@ -1,33 +1,39 @@
 <!--index.php-->
 <?php
-$page = isset($_GET['page']) ? $_GET['page'] : 'index';
-if ($page === 'index') {
+$page = isset($_GET['page']) ? $_GET['page'] : 'accueil';
+if ($page === 'accueil') {
     include 'index.php';
-    }elseif ($page === 'hobby.php') {
+    }elseif ($page === 'hobby') {
     include 'hobby.php';
-    }elseif ($page === 'contact.php') {
+    }elseif ($page === 'contact') {
     include 'contact.php';
     } else {
 echo "<h1>404 Page non trouvée</h1>";
 }
 ?>
 
+<?php
+$page_title = "accueil";
+$page_description = "Page Accueil";
+?>
+
+
 <?php include('header.php'); ?>
 <body>
 
     <h1>Bienvenue sur mon site !</h1>
 
-    <section class="profil">
+    <section>
         <div>
-            <h1 class="bg-dark ">POPELIER Sarah</h1>
-            <h2 class="bg-dark">Parcours dévelopeur</h2>
+            <h1>POPELIER Sarah</h1>
+            <h2>Parcours dévelopeur</h2>
         </div>
     </section>
 
-    <div class="content">
+    <div>
         <aside>
             <section>
-                <h3 class="bg-dark bordered">Profil</h3>
+                <h3>Profil</h3>
                 <p>Passionnée par le développement
                     et les nouvelles technologies, je
                     suis en début de parcours dans ce
@@ -48,7 +54,7 @@ echo "<h1>404 Page non trouvée</h1>";
             </section>
 
             <section>
-                <h3 class="bg-dark bordered">Compétences</h3>
+                <h3>Compétences</h3>
                 <ul class="fontstyleitalic">
                     <li>Sens de l'organisation</li>
                     <li>Travail en équipe</li>
@@ -66,6 +72,6 @@ echo "<h1>404 Page non trouvée</h1>";
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html> 
