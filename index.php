@@ -1,5 +1,10 @@
 <!--index.php-->
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
+
+<?php
 $page = isset($_GET['page']) ? $_GET['page'] : 'accueil';
 if ($page === 'accueil') {
     include 'index.php';
