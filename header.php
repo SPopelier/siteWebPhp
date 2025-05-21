@@ -12,24 +12,34 @@ $page_description = "Page pour mon header";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon site Web</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 <header>
-    <h1>Popelier Sarah site Web</h1>
-    <nav>
+    <div class="header-container">
+
+    <nav class="nav-left">
         <ul>
             <li><a href="index.php?page=index">Accueil</a></li>
             <li><a href="hobby.php?page=hobby">Mes hobbies</a></li>
             <li><a href="contact.php?page=contact">Contact</a></li>
         </ul>
     </nav>
+
+        <h1>Popelier Sarah site Web</h1>
+
+        <div class="logo-right">
+            <img src="logoPS.png" alt="Logo"/>
+        </div>
+    </div>
 </header>
 
 <!--ou-->
-<?php
-/**
 
+
+<!--
 $page_title = "Header";
 $page_description = "Page pour mon header.";
 
@@ -41,8 +51,8 @@ echo '<a href="hobby.php">Hobbies</a>';
 echo '<a href="contact.php">Contact</a>';
 echo '</nav>';
 echo '</header>';
- * */
-?>
+-->
+
 
 
 

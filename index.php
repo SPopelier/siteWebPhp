@@ -8,7 +8,7 @@ if ($page === 'accueil') {
     }elseif ($page === 'contact') {
     include 'contact.php';
     } else {
-echo "<h1>404 Page non trouvée</h1>";
+ "<h1>404 Page non trouvée</h1>";
 }
 ?>
 
@@ -21,18 +21,20 @@ $page_description = "Page Accueil";
 <?php include('header.php'); ?>
 <body>
 
-    <h1>Bienvenue sur mon site !</h1>
+    <h2>Bienvenue sur mon site !</h2>
 
-    <section>
-        <div>
-            <h1>POPELIER Sarah</h1>
+
+        <div id="presentation">
+            <img src="img-droite-header.jpg" alt="Sarah Popelier" id="photo-sarah">
+        <div id="texte-presentation">
+            <h1 id="title-name">POPELIER Sarah</h1>
             <h2>Parcours dévelopeur</h2>
         </div>
-    </section>
+    </div>
 
     <div>
         <aside>
-            <section>
+            <section class="profil">
                 <h3>Profil</h3>
                 <p>Passionnée par le développement
                     et les nouvelles technologies, je
@@ -53,9 +55,9 @@ $page_description = "Page Accueil";
                 </p>
             </section>
 
-            <section>
+            <section class="liste-sans-puce profil">
                 <h3>Compétences</h3>
-                <ul class="fontstyleitalic">
+                <ul class="no-puce fontstyleitalic">
                     <li>Sens de l'organisation</li>
                     <li>Travail en équipe</li>
                     <li>Adaptabilité au changement</li>
